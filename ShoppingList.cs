@@ -87,6 +87,9 @@ class ShoppingList
         foreach (string line in lines)
         {
             string[] parts = line.Split(';');
+
+            if (parts.Length >= 2)
+            
             items.Add(new Item(parts[1], int.Parse(parts[0])));
         }
     }
