@@ -89,16 +89,28 @@ class ShoppingList
             return;
         }
 
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
+        string[] lines = File.ReadAllLines(path);
+        
+        items.Clear();
 
         foreach (string line in lines)
         {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
             string[] parts = line.Split(';');
 
             if (parts.Length >= 2)
+            {
+                string name = parts[1].Trim();
+                if (int.TryParse(parts[0], out int price))
+                {
+                    items.Add(new Item(name, price));
+                }
+            }
 
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
         }
     }
 }
