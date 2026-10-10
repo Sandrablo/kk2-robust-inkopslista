@@ -43,18 +43,28 @@ while (true)
     }
     else if (choice == 2)
     {
-        Console.Write("Nummer: ");
+        if (list.Count == 0)
+        {
+            Console.WriteLine("Inget att ta bort, listan är tom");
+            continue;
+        }
+
+        Console.Write($"Ange varans nummer (1 - {list.Count}): ");
         int number;
+
         while (true)
         {
             string numberInput = Console.ReadLine();
-            if (int.TryParse(numberInput, out number))
+            if (int.TryParse(numberInput, out number) && number <= list.Count)
             {
                 break;
             }
-            Console.Write("Ange ett nummer i siffror: ");
+
+            Console.Write($"Ange ett nummer mellan 1 och {list.Count}: ");
         }
+
         list.RemoveAt(number);
+        Console.WriteLine("Varan är borttagen.");
     }
     else if (choice == 3)
     {
