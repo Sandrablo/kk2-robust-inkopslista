@@ -40,7 +40,7 @@ class ShoppingList
     {
         foreach (Item item in items)
         {
-            if (item.Name == name)
+            if (item != null && item.Name != null && item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
             {
                 return item;
             }
