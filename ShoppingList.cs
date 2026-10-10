@@ -4,6 +4,8 @@ class ShoppingList
     private List<Item> items = new List<Item>();
     private string path;
 
+    public int Count => items.Count;
+
     public ShoppingList(string path)
     {
         this.path = path;
@@ -81,6 +83,12 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
+        if (!File.Exists(path))
+        {
+            Console.WriteLine("Ingen sparad lista hittades.");
+            return;
+        }
+        
         string text = File.ReadAllText(path);
         string[] lines = text.Split('\n');
 
@@ -89,7 +97,7 @@ class ShoppingList
             string[] parts = line.Split(';');
 
             if (parts.Length >= 2)
-            
+
             items.Add(new Item(parts[1], int.Parse(parts[0])));
         }
     }
