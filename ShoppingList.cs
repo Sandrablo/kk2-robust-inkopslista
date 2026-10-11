@@ -4,16 +4,25 @@ class ShoppingList
     private List<Item> items = new List<Item>();
     private string path;
 
+    public int BudgetCap {get; private set;}
+
     public int Count => items.Count;
 
-    public ShoppingList(string path)
+    public ShoppingList(string path, int budgetCap)
     {
         this.path = path;
+        this.BudgetCap = budgetCap;
     }
 
-    public void Add(Item item)
+    public bool Add(Item item)
     {
+        if (Total() + item.Price > BudgetCap)
+        {
+            return false;
+        }
+
         items.Add(item);
+        return true;
     }
 
     // Removes the item the user sees as number 1, 2, 3 ...
