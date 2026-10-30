@@ -75,7 +75,7 @@ while (true)
         while (true)
         {
             string numberInput = Console.ReadLine();
-            if (int.TryParse(numberInput, out number) && number <= list.Count)
+            if (int.TryParse(numberInput, out number) && number >= 1 && number <= list.Count)
             {
                 break;
             }
