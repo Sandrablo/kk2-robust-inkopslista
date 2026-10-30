@@ -120,10 +120,18 @@ class ShoppingList
                 string name = parts[1].Trim();
                 if (int.TryParse(parts[0], out int price))
                 {
+                    try
+                {
                     items.Add(new Item(name, price));
                 }
+                catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Hoppade över ogiltlig rad i filen ({line}): {ex.Message}");
+                    }
+                }
             }
-
         }
     }
 }
+
+
