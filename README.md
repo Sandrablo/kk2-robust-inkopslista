@@ -16,9 +16,10 @@ Jag lade till en kontroll med File.Exists(path). Saknas filen avbryts inläsning
 I metoden Total() startade for-loopen på index 1 istället för 0, därför hoppades den första varans pris över.
 Jag ändrade loopens startindex till 0, vilket gör att även den första varans pris i listan nu räknas med i totalsumman.
 
-5. Programmet kraschade direkt vid start, varornas namn var tomma och det gick inte att söka efter varor. 
-Filen splittades på \n istället för kompletta radbrytningar.
-Jag gjorde om Load() att använda File.ReadAllLines() så filen läses in rad för rad.
+5. Programmet kraschade direkt vid start, varorna som syntes i listan gick inte att hitta med sökningen. 
+Filen splittades på \n istället för kompletta radbrytningar. Eftersom filen slutar med en radbrytning blev sista raden tom, och då fanns inget parts[1], vilket gav IndexOutOfRangeException.
+Filen har också radbrytningen \r\n, så ett osynligt \r blev kvar i slutet av varje namn, vilket gjorde att sökningen inte hittade varan.
+Jag gjorde om Load() att använda File.ReadAllLines() så filen läses in rad för rad. Jag lade även till try/catch runt new Item() så att ogiltliga rader i filen hoppas över med ett meddelande isället för att programmet kraschar.
 
 6. Programmet skrev "Listan är sparad" även när sparandet misslyckades.
 I Save() fanns en tom catch, och utskriften låg efter try/catch så den alltid kördes.
